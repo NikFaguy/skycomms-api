@@ -1,6 +1,7 @@
 "use strict";
 
 //IMPORT
+const path = require("path");
 const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
