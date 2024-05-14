@@ -1,7 +1,6 @@
 "use strict";
 
 const Discussion = require("../models/discussionModel");
-const { search } = require("../routes/discussionRoutes");
 
 const getDiscussions = async (req, res) => {
     try {
