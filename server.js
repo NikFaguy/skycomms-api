@@ -33,7 +33,7 @@ app.use((error, req, res, next) => {
 
 //Enable CORS
 const corsOptions = {
-  origin: "https://skycomms.com",
+  origin: "https://skycomms.vercel.app",
   credentials: true,
   OptionSuccessStatus: 200,
 };
