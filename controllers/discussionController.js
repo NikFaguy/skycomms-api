@@ -97,34 +97,6 @@ const getDiscussionsByTitleAndCategory = async (req, res) => {
     }
 }
 
-const createDiscussion = async (req, res) => {
-
-
-    const { title, text, category } = req.body;
-    const userAuthor = req.user._id;
-    const image = req.file;
-
-    try {
-        const newDiscussion = await new Discussion({
-            title,
-            text,
-            image: image ? image.filename : null,
-            userAuthor: userAuthor._id,
-            category: category
-        });
-
-        const saveDiscussion = await newDiscussion.save();
-        res.status(201).json(saveDiscussion)
-
-    } catch (error) {
-        if (!error.statusCode) {
-            error.statusCode = 500;
-        }
-        res.status(error.statusCode).json(error.message);
-    }
-
-}
-
 const getDiscussionsByUserId = async (req, res) => {
     const { userId } = req.params;
 
@@ -188,4 +160,4 @@ const deleteDiscussion = async (req, res) => {
 
 }
 
-module.exports = { getDiscussions, createDiscussion, getDiscussionsById, deleteDiscussion, getDiscussionsByUserId, getDiscussionsRecentesCategory, getDiscussionsByTitle, getDiscussionsByTitleAndCategory };
+module.exports = { getDiscussions, getDiscussionsById, deleteDiscussion, getDiscussionsByUserId, getDiscussionsRecentesCategory, getDiscussionsByTitle, getDiscussionsByTitleAndCategory };

@@ -2,7 +2,15 @@
 
 //trucs nécessaires pour les routers
 const express = require("express");
-const {getDiscussions, getDiscussionsById, deleteDiscussion, getDiscussionsByUserId, getDiscussionsRecentesCategory, getDiscussionsByTitle, getDiscussionsByTitleAndCategory} = require('../controllers/discussionController');
+const {
+    getDiscussions,
+    getDiscussionsById,
+    deleteDiscussion,
+    getDiscussionsByUserId,
+    getDiscussionsRecentesCategory,
+    getDiscussionsByTitle,
+    getDiscussionsByTitleAndCategory
+} = require('../controllers/discussionController');
 const router = express.Router();
 const Discussion = require('../models/discussionModel')
 
@@ -18,7 +26,7 @@ const path = require('path');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, "../../frontend/images")); 
+        cb(null, path.join(__dirname, "../../frontend/images"));
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname));
