@@ -20,6 +20,18 @@ const commentRoutes = require("./routes/commentRoutes");
 //Create express app
 const app = express();
 
+//Enable CORS
+app.use(cors({
+  origin: [
+    "https://skycomms-git-main-nikfaguys-projects.vercel.app",
+    "https://skycomms-nikfaguys-projects.vercel.app",
+    "https://skycomms.vercel.app",
+    "https://vercel.com/nikfaguys-projects/skycomms/AaFmZiMmrzm88E4nhjPJWrTMQtue"
+  ],
+  credentials: true,
+  optionSuccessStatus: 200,
+}));
+
 //Error handling
 app.use((error, req, res, next) => {
   console.log("Erreur:", error);
@@ -28,16 +40,6 @@ app.use((error, req, res, next) => {
   const data = error.data;
   res.status(status).json({ message: message, data: data });
 });
-
-//MIDDLEWARES
-
-//Enable CORS
-const corsOptions = {
-  origin: "*",
-  credentials: true,
-  OptionSuccessStatus: 200,
-};
-app.use(cors(corsOptions))
 
 //parse JSON bodies and attach them to req.body
 app.use(express.json());
