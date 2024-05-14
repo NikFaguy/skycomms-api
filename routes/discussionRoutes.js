@@ -26,7 +26,7 @@ const path = require('path');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, "../../frontend/images"));
+        cb(null, "uploads/"); 
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname));
@@ -56,13 +56,12 @@ router.use(requireUser)
 router.post('/create', upload.single('imageUploaded'), (req, res) => {
     const { title, text, category } = req.body;
     const userAuthor = req.user._id;
-    const image = req.file;
 
     try {
         const newDiscussion = new Discussion({
             title,
             text,
-            image: image ? image.filename : null,
+            image: req.file.path.replace(/\\/g, "/"),
             userAuthor: userAuthor._id,
             category: category
         });

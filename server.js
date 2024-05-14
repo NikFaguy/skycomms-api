@@ -32,6 +32,10 @@ app.use(cors({
   optionSuccessStatus: 200,
 }));
 
+//MIDDLEWARES
+const dirname = path.resolve();
+app.use('/uploads', express.static(path.join(dirname, '/uploads')));
+
 //Error handling
 app.use((error, req, res, next) => {
   console.log("Erreur:", error);
