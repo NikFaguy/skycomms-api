@@ -31,6 +31,10 @@ const loginUser = async (req, res) => {
             return res.status(400).json({ error: "Nom d'utilisateur ou mot de passe incorrect." });
         }
 
+        if (user.isDeleted) {
+            return res.status(400).json({ error: "Ce compte est banni." });
+        }
+
         const token = createToken(user.id);
 
         res.status(200).json({ user, token });
