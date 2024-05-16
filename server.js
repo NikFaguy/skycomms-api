@@ -84,7 +84,7 @@ mongoose
       if (!user) {
         return res.status(400).json({ error: "cette addresse courriel n'a pas été trouvé" });
       }
-  
+
       const token = webToken.sign({ id: user._id }, process.env.WEB_TOKEN_KEY, { expiresIn: "1d" });
       var transporter = nodemailer.createTransport({
         service: "gmail",
@@ -93,14 +93,14 @@ mongoose
           pass: process.env.APP_PASSWORD,
         },
       });
-  
+
       var mailOptions = {
         from: process.env.SITE_EMAIL,
         to: user.email,
         subject: 'Lien de récupération de mot de passe',
-        text: `http://localhost:3000/resetPassword/${user._id}/${token}`
+        text: `https://skycomms.vercel.app/resetPassword/${user._id}/${token}`
       };
-  
+
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
           console.log(error);
@@ -117,10 +117,10 @@ mongoose
 
   app.post('/newPassword', async (req, res) => {
     try {
-  
+
       const { id,token,password } = req.body;
       console.log(req.body)
-  
+
       //Vérification du token
       const decoded = await new Promise((resolve, reject) => {
         webToken.verify(token, process.env.WEB_TOKEN_KEY, (err, decoded) => {
@@ -131,7 +131,7 @@ mongoose
           }
         });
       });
-  
+
       //Mise à jour du mot de passe
       const user= await User.findByIdAndUpdate({ _id: id }, { password: password });
       console.log(user)
